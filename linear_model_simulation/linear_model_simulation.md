@@ -1,13 +1,12 @@
----
-title: "Evaluation of Linear Model simulation"
-author: "Cemre Kefeli"
-output: html_document
----
+Evaluation of Linear Model simulation
+================
+Cemre Kefeli
+
 For this analysis I will do a linear model simulation.
 
 First we make a function for creating random data.
 
-```{r}
+``` r
 create_random_data <- function(n) {
   x1 <- rnorm(n, mean = 0, sd = 1)
   x2 <- rnorm(n, mean = 0, sd = 1)
@@ -19,9 +18,10 @@ create_random_data <- function(n) {
 }
 ```
 
-Then, we make another function to create a vector that extract several parameters of linear model.
+Then, we make another function to create a vector that extract several
+parameters of linear model.
 
-```{r}
+``` r
 get_lm_statistics <- function(data_frame) {
   # Fit a linear model
   lm_model <- lm(y ~ x1 + x2, data = data_frame)
@@ -52,12 +52,11 @@ get_lm_statistics <- function(data_frame) {
   
   return(result)
 }
-
 ```
 
 And then we make a simulation that creates linear model 100 times.
 
-```{r}
+``` r
 # Define the number of simulations
 num_simulations <- 100  # You can adjust this to your desired number of simulations
 
@@ -82,23 +81,52 @@ for (i in 1:num_simulations) {
 
 # View the first few rows of the results data frame
 head(results_df)
-
 ```
 
-Using only 3 observations we can not calculate the p and t values. I think this is due to not having enough degrees of freedom. I made a linear model with three observations and in summary it suggests no residual degrees of freedom.
+    ##            B0         B1          B2  t0  t1  t2  p0  p1  p2   f df1 df2 pval
+    ## 1 -2.47831988  1.3913449 -2.43877698 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
+    ## 2  0.95362616 -0.4398014  0.25125548 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
+    ## 3  0.58897535  1.0770332  0.07616695 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
+    ## 4  0.43521461 -3.8518751  4.80977144 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
+    ## 5 -0.07471041 -3.1854246 -1.67942898 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
+    ## 6 -0.79516430 -0.3394573  0.25841789 NaN NaN NaN NaN NaN NaN NaN   2   0   NA
 
-```{r}
+Using only 3 observations we can not calculate the p and t values. I
+think this is due to not having enough degrees of freedom. I made a
+linear model with three observations and in summary it suggests no
+residual degrees of freedom.
+
+``` r
 lim <- lm(y ~ x1 + x2, random_df)
 summary(lim)
 ```
 
-When we increase the number of observations `lm` is able to calculate the t-value and p-value.
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x1 + x2, data = random_df)
+    ## 
+    ## Residuals:
+    ## ALL 3 residuals are 0: no residual degrees of freedom!
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept)   0.6230        NaN     NaN      NaN
+    ## x1           -0.4607        NaN     NaN      NaN
+    ## x2           -2.5569        NaN     NaN      NaN
+    ## 
+    ## Residual standard error: NaN on 0 degrees of freedom
+    ## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
+    ## F-statistic:   NaN on 2 and 0 DF,  p-value: NA
 
-However I can not calculate the pval for F-statistics. It always returns NaN for some reason.
+When we increase the number of observations `lm` is able to calculate
+the t-value and p-value.
+
+However I can not calculate the pval for F-statistics. It always returns
+NaN for some reason.
 
 Then I do the plots.
 
-```{r include=T, eval=FALSE}
+``` r
 # Load the ggplot2 library
 library(ggplot2)
 
@@ -113,9 +141,13 @@ plot <- ggplot(plot_data, aes(x = B1, y = B2, color = p1)) +
 
 # Display the plot
 print(plot)
-
 ```
 
-I did plots with several number of different observations. I observed that the coefficient get closer to zero when I increase the n (number of observations). I did some search about what this indicates. My comment on this, since we did a random sampling there is no correlation or significant relation between these variables and when we increase the sample size we can see this non-existent relationship better. 
+I did plots with several number of different observations. I observed
+that the coefficient get closer to zero when I increase the n (number of
+observations). I did some search about what this indicates. My comment
+on this, since we did a random sampling there is no correlation or
+significant relation between these variables and when we increase the
+sample size we can see this non-existent relationship better.
 
 ![](gif.gif)
