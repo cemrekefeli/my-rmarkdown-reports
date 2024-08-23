@@ -115,6 +115,10 @@ scale_y_continuous(name = paste("PC2 (", round(pc_var[2], 1), "%)", sep = ""))
 
 ![](musca_report_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
+```{r, echo=FALSE}
+knitr::include_graphics("pca.png")
+```
+
 To interpret differential gene expression I wanted to do a gene ontology
 or some kind of enrichment analysis. To do that I needed to convert gene
 ids to entrez or ensembl etc. because tools for ontology expect these
