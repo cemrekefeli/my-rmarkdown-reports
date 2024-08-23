@@ -115,9 +115,7 @@ scale_y_continuous(name = paste("PC2 (", round(pc_var[2], 1), "%)", sep = ""))
 
 ![](musca_report_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
-```{r, echo=FALSE}
-knitr::include_graphics("pca.png")
-```
+<img src="pca.png" width="1090" />
 
 To interpret differential gene expression I wanted to do a gene ontology
 or some kind of enrichment analysis. To do that I needed to convert gene
