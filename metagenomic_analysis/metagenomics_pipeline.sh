@@ -192,10 +192,6 @@ qiime tools export \
     --input-path taxonomy.qza \
     --output-path taxonomy
 
-cp phyloseq.r .
-
-Rscript phyloseq.r
-
 
 
 
